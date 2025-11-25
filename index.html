@@ -55,7 +55,6 @@ inputStream : {
   Quagga.onDetected(function (data){
     console.log(data);
     console.log("DETECTADO:", data.codeResult.code);
-    document.querySelector('#resposta').innerHTML = data.codeResult.code;
     if(!foiConsultado){
     consultar(data.codeResult.code)
     }
@@ -80,7 +79,8 @@ async function consultar(codigo){
     console.log(quantidadeProduto)
     console.log(medidaProduto)
     console.log(marcaProduto)
-    resposta.innerHTML+=`
+    resposta.innerHTML=`
+    Código:${codigo}
     Nome: ${nomeProduto}<br>
     Quantidade do produto: ${quantidadeProduto}<br>
     Medida do produto: ${medidaProduto}<br>
