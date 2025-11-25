@@ -13,6 +13,7 @@
     <input type="text" id="input_codigo">
     <button onclick="consultar(input_codigo.value)">Consultar</button>
     <div id="resposta"></div>
+    <div id="imagem"></div>
     <script>
     var foiConsultado = false;
         
@@ -85,6 +86,7 @@ async function consultar(codigo){
     Quantidade do produto: ${quantidadeProduto}<br>
     Medida do produto: ${medidaProduto}<br>
     Marca do produto: ${marcaProduto}<br>`
+    imagem.innerHTML=`<img src="${resposta.product.selected_images.front.display.es}" alt="">`
     foiConsultado = true;
     document.body.firstElementChild.style.display = "none";
     }
