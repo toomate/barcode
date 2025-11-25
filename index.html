@@ -86,7 +86,8 @@ async function consultar(codigo){
     Quantidade do produto: ${quantidadeProduto}<br>
     Medida do produto: ${medidaProduto}<br>
     Marca do produto: ${marcaProduto}<br>`
-    imagem.innerHTML=`<img src="${resposta.product.selected_images.front.display.es}" alt="">`
+    console.log(data.product.selected_images.front.display.es)
+    imagem.innerHTML=`<img src="${data.product.selected_images.front.display.es}" alt="">`
     foiConsultado = true;
     document.body.firstElementChild.style.display = "none";
     }
