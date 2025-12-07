@@ -4,16 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ler barcode</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
+    }
+
+    .container {
+        width: 600px;
+        background: white;
+        border: 1px solid #dcdcdc;
+        padding: 30px 40px;
+        border-radius: 6px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 26px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        margin-top: 15px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .linha {
+        display: flex;
+        gap: 15px;
+    }
+
+    .linha .col {
+        flex: 1;
+    }
+
+    .botoes {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        width: 48%;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background: black;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+    #camera {
+        margin-top: 20px;
+    }
+
+    #botao {
+        margin-top: 15px;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        font-weight: bold;
+    }
+</style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="camera"></div>
-    <button onclick="mostrarCamera()" id="botao">Voltar</button>
-    <script src="quagga.min.js"></script>
-    <input type="text" id="input_codigo">
+<div class="container">
+
+    <h2>Cadastro de Insumo</h2>
+
+    <label>Nome</label>
+    <input type="text" placeholder="Nome do Insumo" id="nomeInsumo">
+
+    <label>Categoria</label>
+    <input type="text" placeholder="Categoria do Insumo">
+
+    <label>Un. de Medida</label>
+    <input type="text" placeholder="Kg" id="unidadeInsumo">
+
+    <label>Qtd. Mínima</label>
+    <input type="text" placeholder="0">
+
+    <label>Marca</label>
+    <input type="text" placeholder="Marca do Insumo" id="marcaInsumo">
+
+    <label>Preço Unitário</label>
+    <input type="text" placeholder="R$0,00">
+
+    <label>Data de validade</label>
+    <input type="text" placeholder="00/00/0000">
+
+    <label>Quantidade</label>
+    <input type="text" placeholder="0">
+
+    <button onclick="mostrarCamera()" id="botao">Ler código de barras</button>
+
+    <div id="camera" style="display: none;"></div>
+
+    <input type="text" id="input_codigo" placeholder="Código lido">
     <button onclick="consultar(input_codigo.value)">Consultar</button>
+
     <div id="resposta"></div>
     <div id="imagem"></div>
+
+    <div class="botoes">
+        <button class="btn">Cancelar</button>
+        <button class="btn">Cadastrar</button>
+    </div>
+
+</div>
+
+<script src="quagga.min.js"></script>
     <script>
     var foiConsultado = false;
         
@@ -80,12 +201,9 @@ async function consultar(codigo){
     console.log(quantidadeProduto)
     console.log(medidaProduto)
     console.log(marcaProduto)
-    resposta.innerHTML=`
-    Código:${codigo}<br>
-    Nome: ${nomeProduto}<br>
-    Quantidade do produto: ${quantidadeProduto}<br>
-    Medida do produto: ${medidaProduto}<br>
-    Marca do produto: ${marcaProduto}<br>`
+    nomeInsumo.placeholder = `${nomeProduto}`
+    unidadeInsumo.placeholder = `${medidaProduto}`
+    marcaInsumo.placeholder = `${marcaProduto}`
     console.log(data.product.selected_images.front.display.pt)
     imagem.innerHTML=`<img src="${data.product.selected_images.front.display.pt}" alt="">`
     foiConsultado = true;
@@ -94,12 +212,12 @@ async function consultar(codigo){
 }
 
 function mostrarCamera(display){
-    if(document.body.firstElementChild.style.display == "none"){
-    document.body.firstElementChild.style.display = "block";
+    if(camera.style.display == "none"){
+    camera.style.display = "block";
     document.querySelector('#botao').textContent = "Voltar"
     }
     else{
-    document.body.firstElementChild.style.display = "none";
+    camera.style.display = "none";
     document.querySelector('#botao').textContent = "Ler código de barras"
     }
 
